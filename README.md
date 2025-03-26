@@ -1,4 +1,3 @@
-message = """
 🎉 Félicitations, cher(e) participant(e) ! 🎉
 
 Vous voilà enfin sorti(e) du **musée de H**. Une épreuve de plus derrière vous, un pas de plus vers l'inconnu...  
@@ -22,22 +21,32 @@ Bonne chance. Vous en aurez besoin.
 ---
 
 📌 *Les véritables joueurs ne se distinguent pas par ce qu'ils trouvent, mais par ce qu'ils imaginent...*
-"""
 
-#class Cryptage:
+import random
+import functools
+
+class Cryptage:
     def __init__(self):
         self.donnees = [
-            (101, 91, 66),
-            (49, 102, 66),
-            (34, 0, 0)
+            (ord('U') ^ 17, ord('9') ^ 34, ord('1') ^ 51),
+            (ord('U') ^ 68, ord('3') ^ 85, ord('8') ^ 102),
+            (ord('U') ^ 119, 0, 0)
         ]
 
     def extraire(self):
-        return "".join(chr(val ^ (i * 17)) for i, group in enumerate(self.donnees) for val in group if val != 0)
+        return "".join(chr(a ^ (i * 17)) for i, groupe in enumerate(self.donnees) for a in groupe if a != 0)
 
+def operation_complexe(x):
+    return (x * 3 - 14) ^ (x // 2)
+
+@functools.lru_cache(maxsize=None)
 def calcul_secret():
-    valeurs = [17, 34, 51, 68, 85, 102, 119]
-    return sum(x**2 for x in valeurs) % 256
+    return sum(operation_complexe(ord(c)) for c in "musée") % 256
+
+if __name__ == "__main__":
+    random.seed(calcul_secret())
+    c = Cryptage()
+    resultat = c.extraire()
 
 if __name__ == "__main__":
     c = Cryptage()
