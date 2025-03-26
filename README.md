@@ -20,12 +20,3 @@ Bonne chance. Vous en aurez besoin.
 
 ---
 📌 *Les véritables joueurs ne se distinguent pas par ce qu'ils trouvent, mais par ce qu'ils imaginent...*  
-
-```python
-import base64
-
-def hint():
-    secret = "VEFHCg=="  # Encodé en base64
-    return base64.b64decode(secret).decode()
-
-# Indice ? print(hint()) 🤫
